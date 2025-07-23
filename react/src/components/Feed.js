@@ -6,6 +6,7 @@ import { Card, Avatar, Button, Input, Upload, List, Typography, Space, message }
 import { HeartOutlined, HeartFilled, CommentOutlined, UploadOutlined } from '@ant-design/icons';
 import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
+import '../App.css';
 
 const { TextArea } = Input;
 const { Text } = Typography;
@@ -87,7 +88,7 @@ function Feed() {
 
   return (
     <div style={{ maxWidth: 600, margin: '0 auto', padding: 16 }}>
-      <Card style={{ marginBottom: 16 }}>
+      <Card className="vk-card" style={{ marginBottom: 16 }}>
         <Space direction="vertical" style={{ width: '100%' }}>
           <TextArea
             placeholder="Что у вас нового?"
@@ -103,7 +104,7 @@ function Feed() {
             >
               <Button icon={<UploadOutlined />}>Прикрепить изображение</Button>
             </Upload>
-            <Button type="primary" onClick={handleCreatePost}>
+            <Button type="primary" onClick={handleCreatePost} className="vk-button">
               Опубликовать
             </Button>
           </Space>
@@ -111,11 +112,12 @@ function Feed() {
       </Card>
       {posts?.map((post) => (
         <Card
+          className="vk-card"
           key={post._id}
           style={{ marginBottom: 16 }}
           actions={[
             <Space onClick={() => handleLike(post)}>
-              {post.likes.some((id) => id === user?._id) ? <HeartFilled style={{ color: 'red' }} /> : <HeartOutlined />}
+              {post.likes.some((id) => id === user?._id) ? <HeartFilled style={{ color: '#5181b8' }} /> : <HeartOutlined />}
               {post.likes.length}
             </Space>,
             <Space>
@@ -151,7 +153,7 @@ function Feed() {
                 value={commentTexts[post._id] || ''}
                 onChange={(e) => handleCommentChange(post._id, e.target.value)}
               />
-              <Button type="primary" onClick={() => handleAddComment(post._id)}>
+              <Button type="primary" onClick={() => handleAddComment(post._id)} className="vk-button">
                 Отправить
               </Button>
             </Space>

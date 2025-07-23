@@ -20,9 +20,9 @@ function App() {
             <Route path="/register" element={<Registration />} />
             <Route path="/login" element={<Login />} />
             <Route path="/" element={<Layout><Outlet /></Layout>}>
-              <Route path="profile" element={<Profile />} />
-              <Route path="feed" element={<Feed />} />
               <Route index element={<Feed />} />
+              <Route path="feed" element={<Feed />} />
+              <Route path="profile" element={<Profile />} />
             </Route>
           </Routes>
         </Router>

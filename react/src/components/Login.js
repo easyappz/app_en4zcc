@@ -2,7 +2,6 @@ import React from 'react';
 import { Form, Input, Button, message } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../api/auth';
-
 import '../App.css';
 
 function Login() {
@@ -13,9 +12,9 @@ function Login() {
       const { token } = await loginUser(values);
       localStorage.setItem('token', token);
       message.success('Вход успешен');
-      navigate('/profile');
+      navigate('/feed');
     } catch (error) {
-      message.error(error || 'Ошибка входа');
+      message.error(error.response?.data?.message || 'Ошибка входа');
     }
   };
 

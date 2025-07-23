@@ -2,7 +2,6 @@ import React from 'react';
 import { Form, Input, Button, message } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { registerUser } from '../api/auth';
-
 import '../App.css';
 
 function Registration() {
@@ -13,9 +12,9 @@ function Registration() {
       const { token } = await registerUser(values);
       localStorage.setItem('token', token);
       message.success('Регистрация успешна');
-      navigate('/profile');
+      navigate('/feed');
     } catch (error) {
-      message.error(error || 'Ошибка регистрации');
+      message.error(error.response?.data?.message || 'Ошибка регистрации');
     }
   };
 

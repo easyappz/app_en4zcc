@@ -3,6 +3,7 @@ import { Layout as AntLayout } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import Header from './Header';
 import Sidebar from './Sidebar';
+import AppFooter from './Footer';
 
 const { Content } = AntLayout;
 
@@ -21,10 +22,11 @@ function Layout({ children }) {
       <Header />
       <AntLayout>
         <Sidebar />
-        <Content style={{ padding: '24px', background: '#fff' }}>
+        <Content className="vk-content">
           {children}
         </Content>
       </AntLayout>
+      <AppFooter />
     </AntLayout>
   );
 }

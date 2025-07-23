@@ -1,12 +1,72 @@
+/* VK-inspired styles */
+
+body {
+  background-color: #edeef0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
 .vk-header {
-  background-color: #0077ff;
+  background-color: #4680c2;
+  height: 56px;
+  padding: 0 20px;
   display: flex;
   align-items: center;
-  padding: 0 16px;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  box-shadow: 0 1px 0 0 #d7d8db, 0 0 0 1px #e3e4e8;
+}
+
+.vk-header .logo {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.vk-header .search {
+  width: 300px;
 }
 
 .vk-sider {
-  background-color: #f0f2f5;
+  background-color: #fafbfc;
+  border-right: 1px solid #e7e8ec;
+  position: fixed;
+  top: 56px;
+  bottom: 0;
+  left: 0;
+  width: 200px;
+  overflow: auto;
+}
+
+.vk-sider .ant-menu {
+  border-right: none;
+}
+
+.vk-sider .ant-menu-item {
+  color: #2a5885;
+  font-weight: 500;
+}
+
+.vk-content {
+  margin: 56px 0 50px 200px;
+  padding: 20px;
+  background: #edeef0;
+}
+
+.vk-footer {
+  background-color: #fafbfc;
+  border-top: 1px solid #e7e8ec;
+  padding: 10px 20px;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  color: #656565;
+  font-size: 12px;
 }
 
 .vk-form {
@@ -14,17 +74,31 @@
   margin: 100px auto;
   padding: 24px;
   background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  box-shadow: 0 1px 0 0 #dce1e6, 0 0 0 1px #e3e4e8;
 }
 
 .vk-button {
-  background-color: #0077ff;
-  border-color: #0077ff;
+  background-color: #5181b8;
+  border-color: #5181b8;
+  border-radius: 4px;
+}
+
+.vk-button:hover {
+  background-color: #5b88bd;
+  border-color: #5b88bd;
 }
 
 .vk-avatar {
   width: 100px;
   height: 100px;
   border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 0 0 #d7d8db, 0 0 0 1px #e3e4e8;
+}
+
+.vk-card {
+  border-radius: 4px;
+  box-shadow: 0 1px 0 0 #dce1e6, 0 0 0 1px #e3e4e8;
+  background: white;
 }

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Input, Button, Upload, message, Avatar, Spin } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
-import { getUserProfile, updateUserProfile } from '../api/profile';
-
+import { getProfile, updateProfile } from '../api/profile';
 import '../App.css';
 
 function Profile() {
@@ -14,7 +13,7 @@ function Profile() {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const data = await getUserProfile();
+        const data = await getProfile();
         setProfile(data);
         form.setFieldsValue({ name: data.name });
         setLoading(false);
@@ -30,9 +29,9 @@ function Profile() {
     try {
       const updatedData = { ...values };
       if (fileList.length > 0) {
-        updatedData.avatar = fileList[0].thumbUrl;
+        updatedData.avatar = fileList[0].thumbUrl.split(',')[1]; // Base64 without prefix
       }
-      const updatedProfile = await updateUserProfile(updatedData);
+      const updatedProfile = await updateProfile(updatedData);
       setProfile(updatedProfile);
       message.success('Профиль обновлен');
     } catch (error) {
@@ -41,20 +40,24 @@ function Profile() {
   };
 
   const beforeUpload = (file) => {
+    if (file.size > 1024 * 1024) {
+      message.error('Аватар превышает лимит 1MB');
+      return false;
+    }
     const reader = new FileReader();
     reader.onload = (e) => {
       setFileList([{ uid: '1', name: file.name, status: 'done', thumbUrl: e.target.result }]);
     };
     reader.readAsDataURL(file);
-    return false; // Prevent upload
+    return false;
   };
 
   if (loading) return <Spin />;
 
   return (
-    <div>
+    <div className="vk-card" style={{ maxWidth: 600, margin: '0 auto', padding: 20 }}>
       <h2>Профиль</h2>
-      <Avatar src={profile.avatar} size={100} className="vk-avatar" />
+      <Avatar src={`data:image/png;base64,${profile.avatar}`} size={100} className="vk-avatar" />
       <p>Email: {profile.email}</p>
       <Form form={form} onFinish={onFinish} layout="vertical">
         <Form.Item name="name" label="Имя" rules={[{ required: true, message: 'Введите имя' }]}>
