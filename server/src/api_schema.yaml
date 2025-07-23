@@ -172,6 +172,18 @@ paths:
                     type: array
                     items:
                       type: string
+                  comments:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        userId:
+                          type: string
+                        text:
+                          type: string
+                        createdAt:
+                          type: string
+                          format: date-time
                   createdAt:
                     type: string
                     format: date-time
@@ -212,6 +224,25 @@ paths:
                       type: array
                       items:
                         type: string
+                    comments:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          userId:
+                            type: object
+                            properties:
+                              _id:
+                                type: string
+                              name:
+                                type: string
+                              avatar:
+                                type: string
+                          text:
+                            type: string
+                          createdAt:
+                            type: string
+                            format: date-time
                     createdAt:
                       type: string
                       format: date-time
@@ -244,6 +275,84 @@ paths:
                     type: array
                     items:
                       type: string
+                  comments:
+                    type: array
+                    items:
+                      type: object
+        '401':
+          description: Unauthorized
+        '404':
+          description: Post not found
+        '500':
+          description: Server error
+    delete:
+      summary: Unlike a post
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Post unliked
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                  likes:
+                    type: array
+                    items:
+                      type: string
+                  comments:
+                    type: array
+                    items:
+                      type: object
+        '401':
+          description: Unauthorized
+        '404':
+          description: Post not found
+        '500':
+          description: Server error
+  /api/posts/{id}/comment:
+    post:
+      summary: Add comment to post
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text:
+                  type: string
+      responses:
+        '200':
+          description: Comment added
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                  comments:
+                    type: array
+                    items:
+                      type: object
         '401':
           description: Unauthorized
         '404':

@@ -26,3 +26,21 @@ export const likePost = async (id) => {
     throw error;
   }
 };
+
+export const unlikePost = async (id) => {
+  try {
+    const response = await instance.delete(`/api/posts/${id}/like`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const addComment = async (id, text) => {
+  try {
+    const response = await instance.post(`/api/posts/${id}/comment`, { text });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

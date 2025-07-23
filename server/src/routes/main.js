@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const { register, login } = require('@src/controllers/authController');
 const { getProfile, updateProfile } = require('@src/controllers/profileController');
-const { createPost, getPosts, likePost } = require('@src/controllers/postsController');
+const { createPost, getPosts, likePost, unlikePost, addComment } = require('@src/controllers/postsController');
 const authMiddleware = require('@src/middlewares/authMiddleware');
 
 /**
@@ -55,5 +55,11 @@ router.get('/posts', authMiddleware, getPosts);
 
 // POST /api/posts/:id/like
 router.post('/posts/:id/like', authMiddleware, likePost);
+
+// DELETE /api/posts/:id/like
+router.delete('/posts/:id/like', authMiddleware, unlikePost);
+
+// POST /api/posts/:id/comment
+router.post('/posts/:id/comment', authMiddleware, addComment);
 
 module.exports = router;

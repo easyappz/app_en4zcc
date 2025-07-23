@@ -13,7 +13,9 @@ async function createPost(req, res) {
 
 async function getPosts(req, res) {
   try {
-    const posts = await Post.find().sort({ createdAt: -1 }).populate('authorId', 'name avatar');
+    const posts = await Post.find().sort({ createdAt: -1 })
+      .populate('authorId', 'name avatar')
+      .populate('comments.userId', 'name avatar');
     res.json(posts);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -36,4 +38,33 @@ async function likePost(req, res) {
   }
 }
 
-module.exports = { createPost, getPosts, likePost };
+async function unlikePost(req, res) {
+  try {
+    const post = await Post.findById(req.params.id);
+    if (!post) {
+      return res.status(404).json({ error: 'Post not found' });
+    }
+    post.likes = post.likes.filter(id => id.toString() !== req.userId.toString());
+    await post.save();
+    res.json(post);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
+async function addComment(req, res) {
+  try {
+    const { text } = req.body;
+    const post = await Post.findById(req.params.id);
+    if (!post) {
+      return res.status(404).json({ error: 'Post not found' });
+    }
+    post.comments.push({ userId: req.userId, text });
+    await post.save();
+    res.json(post);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
+module.exports = { createPost, getPosts, likePost, unlikePost, addComment };
