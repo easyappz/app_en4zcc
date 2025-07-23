@@ -1,9 +1,9 @@
 import React from 'react';
 import { Layout, Typography, Input } from 'antd';
-
-const { Header: AntHeader } = Layout;
 import { SearchOutlined } from '@ant-design/icons';
 import '../App.css';
+
+const { Header: AntHeader } = Layout;
 
 function Header() {
   return (
