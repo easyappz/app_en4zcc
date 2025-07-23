@@ -1,19 +1,19 @@
-import instance from './axios';
+import { instance } from './axios';
 
-export const getProfile = async () => {
+export async function getUserProfile() {
   try {
     const response = await instance.get('/api/profile');
     return response.data;
   } catch (error) {
-    throw error;
+    throw error.response?.data || error.message;
   }
-};
+}
 
-export const updateProfile = async (data) => {
+export async function updateUserProfile(data) {
   try {
     const response = await instance.patch('/api/profile', data);
     return response.data;
   } catch (error) {
-    throw error;
+    throw error.response?.data || error.message;
   }
-};
+}
