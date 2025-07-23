@@ -8,3 +8,12 @@ export const getProfile = async () => {
     throw error;
   }
 };
+
+export const updateProfile = async (updatedData) => {
+  try {
+    const response = await instance.patch('/api/profile', updatedData);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
