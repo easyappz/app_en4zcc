@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Input, Button, message } from 'antd';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { loginUser } from '../api/auth';
 import '../App.css';
 
@@ -33,6 +33,9 @@ function Login() {
           </Button>
         </Form.Item>
       </Form>
+      <p style={{ textAlign: 'center', marginTop: '16px' }}>
+        Нет аккаунта? <Link to="/register" style={{ color: '#0077ff' }}>Зарегистрироваться</Link>
+      </p>
     </div>
   );
 }
