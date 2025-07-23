@@ -3,34 +3,6 @@ info:
   title: API Schema
   version: 1.0.0
 paths:
-  /api/hello:
-    get:
-      summary: Get hello message
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-  /api/status:
-    get:
-      summary: Get server status
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                  timestamp:
-                    type: string
   /api/register:
     post:
       summary: Register a new user
@@ -47,8 +19,10 @@ paths:
               properties:
                 email:
                   type: string
+                  format: email
                 password:
                   type: string
+                  minLength: 6
                 name:
                   type: string
       responses:
@@ -80,6 +54,7 @@ paths:
               properties:
                 email:
                   type: string
+                  format: email
                 password:
                   type: string
       responses:
@@ -108,6 +83,15 @@ paths:
             application/json:
               schema:
                 type: object
+                properties:
+                  _id:
+                    type: string
+                  email:
+                    type: string
+                  name:
+                    type: string
+                  avatar:
+                    type: string
         '401':
           description: Unauthorized
         '404':
@@ -128,6 +112,7 @@ paths:
                   type: string
                 avatar:
                   type: string
+                  description: Base64 encoded image, max 1MB
       responses:
         '200':
           description: Updated profile
@@ -135,6 +120,15 @@ paths:
             application/json:
               schema:
                 type: object
+                properties:
+                  _id:
+                    type: string
+                  email:
+                    type: string
+                  name:
+                    type: string
+                  avatar:
+                    type: string
         '401':
           description: Unauthorized
         '404':
@@ -157,6 +151,7 @@ paths:
                   type: string
                 image:
                   type: string
+                  description: Base64 encoded image, max 1MB
       responses:
         '201':
           description: Post created
@@ -164,6 +159,22 @@ paths:
             application/json:
               schema:
                 type: object
+                properties:
+                  _id:
+                    type: string
+                  content:
+                    type: string
+                  image:
+                    type: string
+                  user:
+                    type: string
+                  likes:
+                    type: array
+                    items:
+                      type: string
+                  createdAt:
+                    type: string
+                    format: date-time
         '401':
           description: Unauthorized
         '500':
@@ -181,6 +192,29 @@ paths:
                 type: array
                 items:
                   type: object
+                  properties:
+                    _id:
+                    type: string
+                    content:
+                      type: string
+                    image:
+                      type: string
+                    user:
+                      type: object
+                      properties:
+                        _id:
+                          type: string
+                        name:
+                          type: string
+                        avatar:
+                          type: string
+                    likes:
+                      type: array
+                      items:
+                        type: string
+                    createdAt:
+                      type: string
+                      format: date-time
         '401':
           description: Unauthorized
         '500':
@@ -203,6 +237,13 @@ paths:
             application/json:
               schema:
                 type: object
+                properties:
+                  _id:
+                    type: string
+                  likes:
+                    type: array
+                    items:
+                      type: string
         '401':
           description: Unauthorized
         '404':
