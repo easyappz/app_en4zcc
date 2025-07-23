@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const { register, login } = require('@src/controllers/authController');
 
 /**
  * Пример создания модели в базу данных
@@ -30,5 +31,11 @@ router.get('/status', (req, res) => {
     timestamp: new Date().toISOString()
   });
 });
+
+// POST /api/register
+router.post('/register', register);
+
+// POST /api/login
+router.post('/login', login);
 
 module.exports = router;
